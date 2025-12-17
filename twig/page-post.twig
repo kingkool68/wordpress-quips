@@ -1,0 +1,32 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+
+	<article class="the-page">
+		{% if the_title %}
+			<h1 class="the-title">
+				{{ the_title }}
+			</h1>
+		{% endif %}
+
+		<section class="the-content wysiwyg">
+			{{ the_content }}
+			<form action="/wp-json/wp/v2/posts" method="POST">
+				<label for="the-title">
+					Title
+				</label>
+				<input type="text" name="title" id="the-title">
+
+				<label for="the-quip">
+					Quip
+				</label>
+				<textarea name="content" id="the-quip"></textarea>
+
+				{{ the_nonce_field }}
+
+				<input type="submit" value="Post">
+			</form>
+		</section>
+	</article>
+
+{% endblock %}
