@@ -25,6 +25,9 @@ $files_to_require = array(
 	'class-rh-search.php',
 	'class-rh-post-type-archives.php',
 
+	// Post types
+	'class-rh-posts.php',
+
 	'class-rh-blocks.php',
 	'class-rh-cli.php',
 	'class-rh-security.php',
