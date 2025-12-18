@@ -44,7 +44,6 @@ class RH_Scripts_And_Styles {
 	public function setup_filters() {
 		add_filter( 'script_loader_src', array( $this, 'filter_cache_busting_file_src' ) );
 		add_filter( 'style_loader_src', array( $this, 'filter_cache_busting_file_src' ) );
-		add_filter( 'script_loader_tag', array( $this, 'filter_script_loader_tag' ), 10, 3 );
 
 		// Remove default block styles
 		remove_filter( 'render_block', 'wp_render_layout_support_flag', 10, 2 );
@@ -82,24 +81,6 @@ class RH_Scripts_And_Styles {
 			$ver       = null,
 			$in_footer = true
 		);
-
-		wp_register_script(
-			'vana11y-tabs',
-			get_template_directory_uri() . '/assets/js/vana11y-tabs.js',
-			$deps      = array(),
-			$ver       = null,
-			$in_footer = true
-		);
-
-		if ( defined( 'GA_TRACKING_ID' ) && ! empty( GA_TRACKING_ID ) ) {
-			wp_register_script(
-				'google-analytics',
-				esc_url( 'https://www.googletagmanager.com/gtag/js?id=' . GA_TRACKING_ID ),
-				$deps      = array(),
-				$ver       = null,
-				$in_footer = false
-			);
-		}
 	}
 
 	/**
@@ -109,15 +90,9 @@ class RH_Scripts_And_Styles {
 	public function action_wp_enqueue_scripts() {
 		wp_enqueue_style( 'rh' );
 
-		wp_enqueue_script( 'google-analytics' );
-
 		// Don't load the default block library CSS since we don't use it
 		wp_dequeue_style( 'wp-block-library' );
 		wp_dequeue_style( 'classic-theme-styles' );
-
-		// Remove frontend assets from the Automatic Upload Images plugin
-		wp_dequeue_style( 'automatic-upload-images' );
-		wp_dequeue_script( 'automatic-upload-images' );
 
 		wp_enqueue_script( 'instant.page' );
 	}
@@ -190,23 +165,6 @@ class RH_Scripts_And_Styles {
 		$time = $dt->format( $time_format );
 		$src  = add_query_arg( 'ver', $time, $src );
 		return $src;
-	}
-
-	/**
-	 * Load certain scripts asynchronously so they aren't render blocking
-	 *
-	 * @param string $tag    The script HTML about to be rendered
-	 * @param string $handle The handle of the script being called to render
-	 * @param string $src    The `src` attribute of the script tag being rendered
-	 */
-	public function filter_script_loader_tag( $tag = '', $handle = '', $src = '' ) {
-		$script_handles_that_should_load_async = array(
-			'google-analytics',
-		);
-		if ( in_array( $handle, $script_handles_that_should_load_async, true ) ) {
-			$tag = str_replace( "src='", "async src='", $tag );
-		}
-		return $tag;
 	}
 }
 
