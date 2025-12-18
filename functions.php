@@ -27,6 +27,7 @@ $files_to_require = array(
 
 	// Post types
 	'class-rh-posts.php',
+	'class-rh-quips.php',
 
 	'class-rh-blocks.php',
 	'class-rh-cli.php',
