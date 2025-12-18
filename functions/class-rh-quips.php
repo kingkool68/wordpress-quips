@@ -37,9 +37,17 @@ class RH_Quips {
 	public function setup_filters() {}
 
 	/**
-	 * Hide the post post type
+	 * Register things
 	 */
 	public function action_init() {
+		wp_register_script(
+			'quips-post',
+			get_template_directory_uri() . '/assets/js/quips-post.js',
+			$deps      = array(),
+			$ver       = null,
+			$in_footer = true
+		);
+
 		$args = array(
 			'labels'              => RH_Helpers::generate_post_type_labels( 'quip', 'quips' ),
 			'supports'            => array( 'editor', 'revisions', 'thumbnail' ),
