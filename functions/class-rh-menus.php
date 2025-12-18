@@ -43,15 +43,6 @@ class RH_Menus {
 	public function action_init() {
 		register_nav_menu( 'main', 'Main Navigation' );
 		register_nav_menu( 'footer', 'Footer Links' );
-
-		wp_register_script(
-			'rh-main-nav',
-			get_template_directory_uri() . '/assets/js/rh-main-nav.js',
-			array( 'jquery' ),
-			$ver       = null,
-			$in_footer = true
-		);
-
 	}
 
 	/**

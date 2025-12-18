@@ -17,7 +17,6 @@ if ( $show_nav ) {
 		'echo'           => false,
 	);
 	$main_nav      = wp_nav_menu( $main_nav_args );
-	wp_enqueue_script( 'rh-main-nav' );
 }
 
 $context = array(
