@@ -45,22 +45,6 @@ class RH_Posts {
 	public function action_init() {
 		unregister_taxonomy_for_object_type( 'category', 'post' );
 		unregister_taxonomy_for_object_type( 'post_tag', 'post' );
-
-		$caps = array(
-			'create_posts',
-			'edit_posts',
-			'edit_others_posts',
-			'publish_posts',
-			'delete_posts',
-			'delete_others_posts',
-		);
-
-		foreach ( $caps as $cap ) {
-			$role = get_role( 'administrator' );
-			if ( $role ) {
-				$role->remove_cap( $cap );
-			}
-		}
 	}
 
 	/**
