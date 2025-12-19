@@ -34,7 +34,10 @@ class RH_Quips {
 	/**
 	 * Hook in to WordPress via filters
 	 */
-	public function setup_filters() {}
+	public function setup_filters() {
+		add_filter( 'use_block_editor_for_post_type', array( $this, 'filter_use_block_editor_for_post_type' ), 10, 2 );
+		add_filter( 'wp_insert_post_data', array( $this, 'filter_wp_insert_post_data' ), 11, 2 );
+	}
 
 	/**
 	 * Register things
@@ -91,6 +94,20 @@ class RH_Quips {
 			return false;
 		}
 		return $use_block_editor;
+	}
+
+	/**
+	 * Set the post title and post_name to the next incremental number when new quip posts are inserted
+	 *
+	 * @param  array $data Post data about to be saved to the database
+	 * @param  array $postarr Submitted $_POST data
+	 */
+	public function filter_wp_insert_post_data( $data = array(), $postarr = array() ) {
+		if ( $data['post_type'] === static::$post_type && empty( $postarr['ID'] ) ) {
+			$data['post_title'] = '1';
+			$data['post_name']  = '1';
+		}
+		return $data;
 	}
 }
 RH_Quips::get_instance();
