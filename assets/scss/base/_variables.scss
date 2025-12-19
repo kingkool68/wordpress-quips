@@ -1,3 +1,5 @@
+@use "base/_functions.scss" as *;
+
 // Font families
 $headline-font:
 	Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial,
@@ -12,8 +14,8 @@ $system:
 	system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
 	"Helvetica Neue", sans-serif;
 
-$maximum-page-width: rem_(1440px);
-$maximum-content-width: rem_(1280px);
+$maximum-page-width: rem(1440px);
+$maximum-content-width: rem(1280px);
 
 $header_height: 72px;
 $admin_bar_height: 32px;

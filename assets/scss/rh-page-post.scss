@@ -1,0 +1,10 @@
+@use 'base/_imports.scss' as *;
+
+textarea {
+	width: 100%;
+	height: rme(120px);
+	font-size: rem(16px);
+	padding: rem(10px);
+	box-sizing: border-box;
+	border-radius: rem(8px);
+}
