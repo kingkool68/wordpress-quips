@@ -71,5 +71,18 @@ class RH_Quips {
 		);
 		register_post_type( static::$post_type, $args );
 	}
+
+	/**
+	 * Disable the block editor for the post type but keep the REST API available
+	 *
+	 * @param  boolean $use_block_editor Whether to use the block editor or not
+	 * @param  string  $post_type The post type to check for block editor support
+	 */
+	public function filter_use_block_editor_for_post_type( $use_block_editor = true, $post_type = '' ) {
+		if ( $post_type === static::$post_type ) {
+			return false;
+		}
+		return $use_block_editor;
+	}
 }
 RH_Quips::get_instance();
