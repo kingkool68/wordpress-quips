@@ -20,10 +20,10 @@ if ( $show_nav ) {
 }
 
 $context = array(
-	'site_url'      => get_site_url(),
-	'logo'          => '',
-	'main_nav'      => $main_nav,
-	'close_icon'    => RH_SVG::get_icon( 'close' ),
-	'menu_icon'     => RH_SVG::get_icon( 'menu' ),
+	'site_url'   => get_site_url(),
+	'logo'       => '',
+	'main_nav'   => $main_nav,
+	'close_icon' => RH_SVG::get_icon( 'close' ),
+	'menu_icon'  => RH_SVG::get_icon( 'menu' ),
 );
 Sprig::out( 'header.twig', $context );
