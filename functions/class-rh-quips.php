@@ -40,9 +40,17 @@ class RH_Quips {
 	 * Register things
 	 */
 	public function action_init() {
+		wp_register_style(
+			'rh-page-post',
+			get_template_directory_uri() . '/assets/css/rh-page-post.min.css',
+			$deps  = array(),
+			$ver   = null,
+			$media = 'all'
+		);
+
 		wp_register_script(
-			'page-post',
-			get_template_directory_uri() . '/assets/js/page-post.js',
+			'rh-page-post',
+			get_template_directory_uri() . '/assets/js/rh-page-post.js',
 			$deps      = array(),
 			$ver       = null,
 			$in_footer = true
