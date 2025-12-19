@@ -41,8 +41,8 @@ class RH_Quips {
 	 */
 	public function action_init() {
 		wp_register_script(
-			'quips-post',
-			get_template_directory_uri() . '/assets/js/quips-post.js',
+			'page-post',
+			get_template_directory_uri() . '/assets/js/page-post.js',
 			$deps      = array(),
 			$ver       = null,
 			$in_footer = true

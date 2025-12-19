@@ -1,8 +1,7 @@
 <?php
 $context = array(
 	'the_title'       => apply_filters( 'the_title', get_the_title() ),
-	'the_content'     => apply_filters( 'the_content', get_the_content() ),
 	'the_nonce_field' => wp_nonce_field( 'wp_rest', '_wpnonce', true, false ),
 );
-wp_enqueue_script( 'quips-post' );
+wp_enqueue_script( 'page-post' );
 Sprig::out( 'page-post.twig', $context );
