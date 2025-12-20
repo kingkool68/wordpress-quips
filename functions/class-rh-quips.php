@@ -104,10 +104,52 @@ class RH_Quips {
 	 */
 	public function filter_wp_insert_post_data( $data = array(), $postarr = array() ) {
 		if ( $data['post_type'] === static::$post_type && empty( $postarr['ID'] ) ) {
-			$data['post_title'] = '1';
-			$data['post_name']  = '1';
+			$sequential_id      = static::get_next_sequential_id();
+			$data['post_title'] = $sequential_id;
+			$data['post_name']  = $sequential_id;
 		}
 		return $data;
+	}
+
+	/**
+	 * Get the stored sequential ID option and increments the value by one
+	 */
+	public static function get_next_sequential_id() {
+		$option_name   = 'quip_sequential_id';
+		$sequential_id = get_option( $option_name );
+
+		// If false (aka not found), recalculate it from the existing quips
+		if ( ! $sequential_id ) {
+			$sequential_id = static::recalculate_sequential_id();
+		}
+
+		$next_sequential_id = absint( $sequential_id ) + 1;
+		update_option( $option_name, $next_sequential_id, $autoload = false );
+		return $next_sequential_id;
+	}
+
+	/**
+	 * Recalculate the sequential ID by querying published quips
+	 */
+	public static function recalculate_sequential_id() {
+		$latest_quip = get_posts(
+			array(
+				'post_type'              => static::$post_type,
+				'post_status'            => 'publish',
+				'posts_per_page'         => 1,
+				'orderby'                => 'name',
+				'order'                  => 'DESC',
+
+				// For performance
+				'no_found_rows'          => true,
+				'update_post_meta_cache' => false,
+				'update_post_term_cache' => false,
+			)
+		);
+		if ( empty( $latest_quip[0]->post_name ) ) {
+			return 0;
+		}
+		return absint( $latest_quip[0]->post_name );
 	}
 }
 RH_Quips::get_instance();
